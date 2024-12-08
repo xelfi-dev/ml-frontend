@@ -48,7 +48,7 @@ export default function ProfilePage() {
 
       // Make an API call to fetch RFM values
       const response = await axios.get<RFMValues>(
-        `http://127.0.0.1:5000/get_rfm/${customerId}`
+        `https://ml-project-backend-o0qp.onrender.com/get_rfm/${customerId}`
       );
 
       // Update the state with the fetched RFM values

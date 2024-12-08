@@ -64,7 +64,9 @@ export default function Home() {
   }, []);
   const fetchProducts = async () => {
     try {
-      const response = await axios.get("http://127.0.0.1:5000/get_items");
+      const response = await axios.get(
+        "https://ml-project-backend-o0qp.onrender.com/get_items"
+      );
       setProducts(response.data.items.slice(0, 100));
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -111,7 +113,7 @@ export default function Home() {
       }
 
       const response = await axios.post(
-        "http://127.0.0.1:5000/add_products",
+        "https://ml-project-backend-o0qp.onrender.com/add_products",
         products
       );
 
