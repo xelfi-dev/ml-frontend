@@ -68,6 +68,7 @@ export default function Home() {
 
   const addItem = () => {
     if (selectedProduct && quantity && date) {
+      // @ts-ignore
       setItems((prevItems) => [
         ...prevItems,
         {
