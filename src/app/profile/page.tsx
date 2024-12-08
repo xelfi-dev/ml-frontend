@@ -7,6 +7,13 @@ import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import Cookies from "js-cookie";
 import axios from "axios";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 export default function ProfilePage() {
   const [customerId, setCustomerId] = useState("");
@@ -15,6 +22,9 @@ export default function ProfilePage() {
     Frequency: number;
     Monetary: number;
   } | null>(null);
+
+  const [isError, setIsError] = useState(false); // Track error state
+  const [errorMessage, setErrorMessage] = useState(""); // Store the error message
 
   const randomInt = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -53,8 +63,11 @@ export default function ProfilePage() {
 
       // Update the state with the fetched RFM values
       setRfmValues(response.data);
+      setIsError(false); // Reset error state if successful
     } catch (error) {
       console.error("Error fetching RFM values:", error);
+      setErrorMessage("Invalid customer ID"); // Set the error message
+      setIsError(true); // Set the error state to true
     }
   };
 
@@ -138,6 +151,21 @@ export default function ProfilePage() {
           )}
         </div>
       </div>
+
+      {/* Error Dialog */}
+      <Dialog open={isError} onOpenChange={() => setIsError(false)}>
+        <DialogContent className="bg-[#1F1F1F] text-white p-8">
+          <DialogHeader>
+            <DialogTitle>Error</DialogTitle>
+          </DialogHeader>
+          <div className="text-center">
+            <p>{errorMessage}</p>
+            <DialogClose asChild>
+              <Button className="mt-4 w-full">Close</Button>
+            </DialogClose>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

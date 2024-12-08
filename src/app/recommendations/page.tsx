@@ -6,10 +6,21 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Label } from "@/components/ui/label";
 import Cookies from "js-cookie";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 export default function RecommendationsPage() {
   const [customerId, setCustomerId] = useState("");
   const [recommendations, setRecommendations] = useState<string[] | null>(null);
+
+  const [isError, setIsError] = useState(false); // Track error state
+  const [errorMessage, setErrorMessage] = useState(""); // Store the error message
 
   const randomInt = (min: number, max: number) => {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -32,13 +43,25 @@ export default function RecommendationsPage() {
     // Clear previous recommendations before fetching new data
     setRecommendations(null);
 
-    // Simulate fetching recommendations for the customer ID
-    const mockRecommendations = [
-      "Product A - Recommended based on your purchase history",
-      "Product B - Might interest you based on your preferences",
-      "Product C - Highly rated by customers like you",
-    ];
-    setRecommendations(mockRecommendations);
+    try {
+      // Simulate fetching recommendations for the customer ID
+      // Simulate an error scenario by throwing an error
+      throw new Error("Failed to fetch recommendations");
+
+      // Normally, you would make an API call to fetch recommendations here
+      const mockRecommendations = [
+        "Product A - Recommended based on your purchase history",
+        "Product B - Might interest you based on your preferences",
+        "Product C - Highly rated by customers like you",
+      ];
+      setRecommendations(mockRecommendations);
+    } catch (error) {
+      console.error("Error fetching recommendations:", error);
+      setErrorMessage(
+        "There was an error fetching the recommendations. Please check your customer ID and try again."
+      );
+      setIsError(true); // Show the error dialog
+    }
   };
 
   return (
@@ -80,6 +103,21 @@ export default function RecommendationsPage() {
           )}
         </div>
       </div>
+
+      {/* Error Dialog */}
+      <Dialog open={isError} onOpenChange={() => setIsError(false)}>
+        <DialogContent className="bg-[#1F1F1F] text-white p-8">
+          <DialogHeader>
+            <DialogTitle>Error</DialogTitle>
+          </DialogHeader>
+          <div className="text-center">
+            <p>{errorMessage}</p>
+            <DialogClose asChild>
+              <Button className="mt-4 w-full">Close</Button>
+            </DialogClose>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
