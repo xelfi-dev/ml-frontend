@@ -34,14 +34,20 @@ export default function ProfilePage() {
     }
   }, []);
 
-  const handleGetRFM = async (customerId) => {
+  interface RFMValues {
+    Recency: number;
+    Frequency: number;
+    Monetary: number;
+  }
+
+  const handleGetRFM = async (customerId: string): Promise<void> => {
     try {
       // Clear previous RFM values before fetching new data
       setRfmValues(null);
       console.log(customerId);
 
       // Make an API call to fetch RFM values
-      const response = await axios.get(
+      const response = await axios.get<RFMValues>(
         `http://127.0.0.1:5000/get_rfm/${customerId}`
       );
 
@@ -58,7 +64,7 @@ export default function ProfilePage() {
 
     const { Recency, Frequency, Monetary } = rfmValues;
     let profileDescription = "Profile: ";
-    if (Frequency > 15) {
+    if (Frequency > 15 && Recency && Monetary) {
       profileDescription += "Loyal Customer";
     } else if (Frequency > 5) {
       profileDescription += "Occasional Shopper";

@@ -31,8 +31,16 @@ export default function Home() {
   const [customerId, setCustomerId] = useState("");
   const [selectedProduct, setSelectedProduct] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [date, setDate] = useState(null);
-  const [items, setItems] = useState([]);
+  const [date, setDate] = useState<Date | null>(null); // Initialize date as null or Date object
+  interface Item {
+    customerId: string;
+    description: string;
+    quantity: string;
+    date: string;
+    country: string;
+  }
+
+  const [items, setItems] = useState<Item[]>([]);
   const [products, setProducts] = useState([
     "product1",
     "product2",
@@ -87,7 +95,15 @@ export default function Home() {
     }
   };
 
-  const addProductsToDB = async (products) => {
+  interface Product {
+    customerId: string;
+    description: string;
+    quantity: string;
+    date: string;
+    country: string;
+  }
+
+  const addProductsToDB = async (products: Product[]): Promise<void> => {
     try {
       // Ensure products is an array of product objects
       if (!Array.isArray(products)) {
@@ -170,7 +186,11 @@ export default function Home() {
             </Button>
           </PopoverTrigger>
           <PopoverContent align="start" className="p-0">
-            <Calendar mode="single" selected={date} onSelect={setDate} />
+            <Calendar
+              mode="single"
+              selected={date || undefined}
+              onSelect={(day) => setDate(day || null)}
+            />
           </PopoverContent>
         </Popover>
 
@@ -200,7 +220,7 @@ export default function Home() {
             {items.map((item, index) => (
               <TableRow key={index}>
                 <TableCell>{item.customerId || customerID}</TableCell>
-                <TableCell>{item.product}</TableCell>
+                <TableCell>{item.description}</TableCell>
                 <TableCell>{item.quantity}</TableCell>
                 <TableCell>{item.date}</TableCell>
                 <TableCell>
