@@ -61,21 +61,22 @@ export default function RecommendationsPage() {
       <div className="min-h-[300px]">
         <div className="mt-6">
           {recommendations && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="p-4 bg-[#282828] rounded-lg shadow-lg text-center space-y-2"
-            >
-              <h2 className="text-xl font-semibold">Your Recommendations</h2>
-              <ul className="space-y-2 text-left">
-                {recommendations.map((item, index) => (
-                  <li key={index} className="text-sm">
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            <div className="p-4 bg-[#282828] rounded-lg shadow-lg text-center space-y-2">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-xl font-semibold">Your Recommendations</h2>
+                <ul className="space-y-2 text-left">
+                  {recommendations.map((item, index) => (
+                    <li key={index} className="text-sm">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </div>
           )}
         </div>
       </div>

@@ -101,37 +101,39 @@ export default function ProfilePage() {
       <div className="min-h-[300px]">
         <div className="mt-6">
           {rfmValues && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="p-4 bg-[#282828] rounded-lg shadow-lg text-center space-y-2"
-            >
-              <h2 className="text-xl font-semibold">RFM Values</h2>
-              <p>
-                <strong>Recency:</strong> {rfmValues.Recency}
-              </p>
-              <p>
-                <strong>Frequency:</strong> {rfmValues.Frequency}
-              </p>
-              <p>
-                <strong>Monetary:</strong> ${rfmValues.Monetary}
-              </p>
-            </motion.div>
+            <div className="p-4 bg-[#282828] rounded-lg shadow-lg text-center space-y-2">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h2 className="text-xl font-semibold">RFM Values</h2>
+                <p>
+                  <strong>Recency:</strong> {rfmValues.Recency}
+                </p>
+                <p>
+                  <strong>Frequency:</strong> {rfmValues.Frequency}
+                </p>
+                <p>
+                  <strong>Monetary:</strong> ${rfmValues.Monetary}
+                </p>
+              </motion.div>
+            </div>
           )}
           {/* Customer Profile Description */}
           {rfmValues && (
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="mt-6 p-4 bg-[#282828] rounded-lg shadow-lg text-center space-y-2"
-            >
-              <h3 className="text-lg font-semibold">Customer Profile</h3>
-              <p className="text-sm text-gray-400">
-                {generateCustomerProfile()}
-              </p>
-            </motion.div>
+            <div className="mt-6 p-4 bg-[#282828] rounded-lg shadow-lg text-center space-y-2">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <h3 className="text-lg font-semibold">Customer Profile</h3>
+                <p className="text-sm text-gray-400">
+                  {generateCustomerProfile()}
+                </p>
+              </motion.div>
+            </div>
           )}
         </div>
       </div>
