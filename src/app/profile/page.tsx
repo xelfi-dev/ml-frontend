@@ -109,7 +109,8 @@ export default function ProfilePage() {
               >
                 <h2 className="text-xl font-semibold">RFM Values</h2>
                 <p>
-                  <strong>Recency:</strong> {rfmValues.Recency}
+                  <strong>Recency:</strong>{" "}
+                  {rfmValues.Recency > 0 ? rfmValues.Recency : 0}
                 </p>
                 <p>
                   <strong>Frequency:</strong> {rfmValues.Frequency}
