@@ -82,7 +82,7 @@ export default function Home() {
       setItems((prevItems) => [
         ...prevItems,
         {
-          customerId,
+          customerId: customerId || customerID,
           description: selectedProduct,
           quantity,
           date: date.toISOString().split("T")[0], // Format date as YYYY-MM-DD
