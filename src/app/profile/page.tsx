@@ -129,7 +129,7 @@ export default function ProfilePage() {
                   <strong>Frequency:</strong> {rfmValues.Frequency}
                 </p>
                 <p>
-                  <strong>Monetary:</strong> ${rfmValues.Monetary}
+                  <strong>Monetary:</strong> ${rfmValues.Monetary.toFixed(2)}
                 </p>
               </motion.div>
             </div>

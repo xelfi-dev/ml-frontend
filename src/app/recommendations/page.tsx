@@ -39,26 +39,31 @@ export default function RecommendationsPage() {
     }
   }, []);
 
-  const handleGetRecommendations = () => {
-    // Clear previous recommendations before fetching new data
-    setRecommendations(null);
+  const handleGetRecommendations = async () => {
+    setRecommendations(null); // Clear previous recommendations
 
     try {
-      // Simulate fetching recommendations for the customer ID
-      // Simulate an error scenario by throwing an error
-      throw new Error("Failed to fetch recommendations");
+      const response = await fetch(
+        `https://ml-project-backend-o0qp.onrender.com/get_recommendations/${customerId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-      // Normally, you would make an API call to fetch recommendations here
-      const mockRecommendations = [
-        "Product A - Recommended based on your purchase history",
-        "Product B - Might interest you based on your preferences",
-        "Product C - Highly rated by customers like you",
-      ];
-      setRecommendations(mockRecommendations);
-    } catch (error) {
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to fetch recommendations");
+      }
+
+      const data = await response.json();
+      setRecommendations(data.recommendations?.slice(0, 4) || []);
+    } catch (error: any) {
       console.error("Error fetching recommendations:", error);
       setErrorMessage(
-        "There was an error fetching the recommendations. Please check your customer ID and try again."
+        error.message || "There was an error fetching the recommendations."
       );
       setIsError(true); // Show the error dialog
     }
@@ -90,7 +95,9 @@ export default function RecommendationsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-xl font-semibold">Your Recommendations</h2>
+                <h2 className="text-xl font-semibold mb-2">
+                  Your Recommendations
+                </h2>
                 <ul className="space-y-2 text-left">
                   {recommendations.map((item, index) => (
                     <li key={index} className="text-sm">
